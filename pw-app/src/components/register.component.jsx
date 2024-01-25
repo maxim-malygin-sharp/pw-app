@@ -1,19 +1,33 @@
-import {connect, useSelector, useDispatch} from "react-redux";
-import { Component } from "react";
-import { withFormik, Form, Field } from 'formik'
+import {connect, useDispatch} from "react-redux";
+import { Formik, Form } from 'formik'
 import * as yup from 'yup'
 import { register } from '../actions/auth.actions'
 import FromField from './formfield.component'
 
 const Register = () => {
-    const initialValues = {
-        userName: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      };
-    
+        
+    const dispatch = useDispatch();
+
     return (
+        <Formik
+          initialValues={{ 
+            userName: '',
+            email: '',
+            password: '',
+            confirmPassword: ''
+          }}
+          validationSchema={yup.object({
+            email: yup.string().email('Email not valid').required('Email is required'),
+            userName: yup.string().required('User Name is required!'),
+            password: yup.string().min(8, 'Password must be 9 characters or longer').required('Password is required'),
+            confirmPassword: yup.string()
+                .required("Confirm Password is required")
+                .oneOf([yup.ref("password"), null], "Confirm Password does not match")
+          })}
+          onSubmit={(values, { setSubmitting }) => {
+           dispatch(register({username: values.userName, email: values.email, password: values.password}));
+          }}
+        >
             <div>
             <h1 className="">Signup</h1>
             <Form className="form p-3">
@@ -49,30 +63,9 @@ const Register = () => {
               </button>
             </Form>
           </div>
+          </Formik>
         );
     }
-
-const RegisterForm = withFormik({
-        mapPropsToValues({ userName, email, password, confirmPassword }) {
-            return {
-            userName: userName || '',
-            email: email || '',
-            password: password || '',
-            confirmPassword: confirmPassword || ''
-            }
-        },
-        validationSchema: yup.object().shape({
-            email: yup.string().email('Email not valid').required('Email is required'),
-            userName: yup.string().required('User Name is required!'),
-            password: yup.string().min(8, 'Password must be 9 characters or longer').required('Password is required'),
-            confirmPassword: yup.string()
-                .required("Confirm Password is required")
-                .oneOf([yup.ref("password"), null], "Confirm Password does not match")
-        }),
-        handleSubmit(values, { register }) {
-            register(values);
-        }
-        })(Register);
 
 const mapStateToProps = (state) => {
     return {
@@ -84,4 +77,4 @@ const mapDispatchToProps = dispatch => ({
         dispatch(register({username: values.userName, email: values.email, password: values.password})),
   });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

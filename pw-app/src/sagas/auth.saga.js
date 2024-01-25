@@ -1,5 +1,5 @@
 import { takeLatest, call, fork, put } from "redux-saga/effects";
-import { actionTypes } from "../actions/auth";
+import { actionTypes } from "../actions/auth.actions";
 import * as authStore from "../stores/auth.store";
 import * as authService from "../services/auth.service";
 
@@ -38,18 +38,18 @@ function* signOut() {
     }
 }
 
-function* getRegistration() {
+function* watchRegistration() {
     yield takeLatest(actionTypes.REGISTER, register);
 }
 
-function* getSignIn() {
+function* watchSignIn() {
     yield takeLatest(actionTypes.SIGNIN, signIn);
 }
 
-function* getSignout() {
+function* watchSignout() {
     yield takeLatest(actionTypes.SIGNOUT, signOut);
 }
 
-const AuthSagas = [fork(getRegistration), fork(getSignIn), fork(getSignout)];
+const AuthSagas = [fork(watchRegistration), fork(watchSignIn), fork(watchSignout)];
 
 export default AuthSagas;

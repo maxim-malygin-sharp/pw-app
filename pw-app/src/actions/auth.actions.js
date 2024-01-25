@@ -25,7 +25,7 @@ export const registerFailed = ({error}) => ({
 });
 
 export const signin = ({email, password}) => ({
-    type: actionTypes.signin,
+    type: actionTypes.SIGNIN,
     payload: {email, password},
 });
 

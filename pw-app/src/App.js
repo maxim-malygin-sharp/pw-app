@@ -8,16 +8,11 @@ import {
 import logo from './logo.svg';
 import './App.css';
 import RegisterForm from './components/register.component'
-import { Provider } from "react-redux";
-import reducers from './reducers'
-import { createStore } from 'redux'
-
-const store = createStore(reducers);
+import SignIn from './components/signin.component'
 
 class App extends Component {
   render() {
     return (
-      <Provider store={store}>
       <BrowserRouter>
         <div>
           <h1>Simple SPA</h1>
@@ -25,17 +20,18 @@ class App extends Component {
             <li><NavLink to="/">Main</NavLink></li>
             <li><NavLink to="/login">Login</NavLink></li>
             <li><NavLink to="/signup">Sign up</NavLink></li>
+            <li><NavLink to="/signin">Sign in</NavLink></li>
           </ul>
           <div className="content">
             <Routes>
               <Route exact path="/" element={<Main/>}/>
               <Route path="/login" element={<Login/>}/>
               <Route path="/signup" element={<RegisterForm/>}/>
+              <Route path="/signin" element={<SignIn/>}/>
             </Routes>
           </div>
         </div>
       </BrowserRouter>
-      </Provider>
     );
   };
 }
