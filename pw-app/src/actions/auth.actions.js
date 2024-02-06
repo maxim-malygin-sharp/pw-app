@@ -8,6 +8,9 @@ export const actionTypes = {
     SIGNOUT: "SIGNOUT",
     SIGNOUT_SUCCESS: "SIGNOUT_SUCCESS",
     SIGNOUT_FAILED: "SIGNOUT_FAILED",
+    CHECK_AUTH: "CHECK_AUTH",
+    CHECK_AUTH_SUCCESS: "CHECK_AUTH_SUCCESS",
+    CHECK_AUTH_FAILED: "CHECK_AUTH_FAILED"
 };
 
 export const register = ({username, email, password}) => ({
@@ -49,4 +52,18 @@ export const signoutSuccessAction = () => ({
 export const signoutFailedAction = ({error}) => ({
     type: actionTypes.SIGNOUT_FAILED,
     payload: {error},
+});
+
+export const authCheck = () => ({
+    type: actionTypes.CHECK_AUTH
+});
+
+export const authCheckSuccess = (isAuthenticated) => ({
+    type: actionTypes.CHECK_AUTH_SUCCESS,
+    payload: {isAuthenticated},
+});
+
+export const authCheckFailed = (error) => ({
+    type: actionTypes.CHECK_AUTH_FAILED,
+    payload: { error },
 });

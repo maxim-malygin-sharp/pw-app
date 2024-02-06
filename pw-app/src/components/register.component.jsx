@@ -1,12 +1,17 @@
 import {connect, useDispatch} from "react-redux";
 import { Formik, Form } from 'formik'
 import * as yup from 'yup'
-import { register } from '../actions/auth.actions'
+import { register, authCheck } from '../actions/auth.actions'
 import FromField from './formfield.component'
+import { useNavigate } from "react-router-dom";
 
-const Register = () => {
-        
-    const dispatch = useDispatch();
+const Register = (props) => {
+    var navigate = useNavigate();
+    this.props.authCheck();
+    if (props.auth?.isAuthenticated == true)
+    {
+      navigate('/', { replace: true });
+    }
 
     return (
         <Formik
@@ -25,7 +30,7 @@ const Register = () => {
                 .oneOf([yup.ref("password"), null], "Confirm Password does not match")
           })}
           onSubmit={(values, { setSubmitting }) => {
-           dispatch(register({username: values.userName, email: values.email, password: values.password}));
+            props.register({username: values.userName, email: values.email, password: values.password});
           }}
         >
             <div>
@@ -72,9 +77,5 @@ const mapStateToProps = (state) => {
         auth: state.auth,
     };
 };
-const mapDispatchToProps = dispatch => ({
-    register: values =>          
-        dispatch(register({username: values.userName, email: values.email, password: values.password})),
-  });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export default connect(mapStateToProps, { register, authCheck })(Register);

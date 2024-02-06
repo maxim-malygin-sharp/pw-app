@@ -1,7 +1,7 @@
 import {actionTypes} from "../actions/auth.actions";
 
 const INIT_STATE = {
-    isLoggedIn: false,
+    isAuthenticated: false,
     isLoading: false,
     error: null,
 };
@@ -18,7 +18,7 @@ export default function auth(state = INIT_STATE, action) {
             return {
                 ...state,
                 isLoading: false,
-                isLoggedIn: true,
+                isAuthenticated: true,
                 error: null,
             };
         }
@@ -39,7 +39,7 @@ export default function auth(state = INIT_STATE, action) {
             return {
                 ...state,
                 isLoading: false,
-                isLoggedIn: true,
+                isAuthenticated: true,
                 error: null,
             };
         }
@@ -60,7 +60,7 @@ export default function auth(state = INIT_STATE, action) {
             return {
                 ...state,
                 isLoading: false,
-                isLoggedIn: false,
+                isAuthenticated: false,
                 error: null,
             };
         }
@@ -68,6 +68,26 @@ export default function auth(state = INIT_STATE, action) {
             return {
                 ...state,
                 isLoading: false,
+                error: action.payload.error,
+            };
+        }
+        case actionTypes.CHECK_AUTH: {
+            return {
+                ...state
+            };
+        }
+        case actionTypes.CHECK_AUTH_SUCCESS: {
+            return {
+                ...state,
+                isLoading: false,
+                isAuthenticated: action.payload.isAuthenticated
+            };
+        }
+        case actionTypes.CHECK_AUTH_FAILED: {
+            return {
+                ...state,
+                isLoading: false,
+                isAuthenticated: false,
                 error: action.payload.error,
             };
         }

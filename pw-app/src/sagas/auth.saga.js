@@ -11,6 +11,7 @@ function* register(action) {
         yield put({type: actionTypes.REGISTER_SUCCESS});
 
         authStore.setAccessToken(response.data.id_token);
+
     } catch (e) {
         yield put({type: actionTypes.REGISTER_FAILED, payload: {error: e.response.data}});
     }
@@ -18,10 +19,13 @@ function* register(action) {
 
 function* signIn(action) {
     try {
+        debugger;
+        console.log('saga->signin');
         const {email, password} = action.payload;
         const response = yield call(authService.signIn, email, password);
         
-        authStore.setAccessToken(response.data.id_token);
+        debugger;
+        authStore.setAccessToken(response?.data?.id_token);
 
         yield put({type: actionTypes.SIGNIN_SUCCESS});
     } catch (e) {
@@ -34,8 +38,23 @@ function* signOut() {
         authStore.clearAccessToken();
         yield put({type: actionTypes.SIGNOUT_SUCCESS});
     } catch {
-        yield put({type: actionTypes.SIGNIN_FAILURE, payload: {error: "Signout failure"}});
+        yield put({type: actionTypes.SIGNIN_FAILED, payload: {error: "Signout failed"}});
     }
+}
+
+function* checkAuth() {
+    try {
+        const token = authStore.getAccessToken();
+        var isAuthenticated = !!token;
+        debugger;
+        yield put({type: actionTypes.CHECK_AUTH_SUCCESS, payload: { isAuthenticated: isAuthenticated }});
+    } catch (e) {
+        yield put({type: actionTypes.CHECK_AUTH_FAILED, payload: {error: e}});
+    }
+}
+
+function* watchCheckAuth() {
+    yield takeLatest(actionTypes.CHECK_AUTH, checkAuth);
 }
 
 function* watchRegistration() {
@@ -50,6 +69,6 @@ function* watchSignout() {
     yield takeLatest(actionTypes.SIGNOUT, signOut);
 }
 
-const AuthSagas = [fork(watchRegistration), fork(watchSignIn), fork(watchSignout)];
+const AuthSagas = [fork(watchRegistration), fork(watchSignIn), fork(watchSignout), fork(watchCheckAuth)];
 
 export default AuthSagas;

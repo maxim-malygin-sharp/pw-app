@@ -2,12 +2,19 @@ import React from 'react';
 import {connect, useDispatch} from "react-redux";
  import { Formik, Field, Form, ErrorMessage } from 'formik';
  import * as Yup from 'yup';
- import { signin } from '../actions/auth.actions'
+ import { authCheck, signin } from '../actions/auth.actions'
  import FromField from './formfield.component'
+ import { useNavigate } from "react-router-dom";
  
- const SignIn = () => {
+ const SignIn = (props) => {
     
     const dispatch = useDispatch();
+    // var navigate = useNavigate();
+    // dispatch(authCheck());
+    // if (props.auth?.isAuthenticated == true)
+    // {
+    //   navigate('/', { replace: true });
+    // }
 
    return (
      <Formik
@@ -17,7 +24,8 @@ import {connect, useDispatch} from "react-redux";
         password: Yup.string().required('Password is required')
        })}
        onSubmit={(data, { setSubmitting }) => {
-        dispatch(signin({email: data.email, password: data.password}));
+        console.log('signin.submit')
+        props.signin({email: data.email, password: data.password});
        }}
      >
        <Form>

@@ -5,10 +5,10 @@ import {
   BrowserRouter,
   Routes
 } from "react-router-dom";
-import logo from './logo.svg';
 import './App.css';
 import RegisterForm from './components/register.component'
 import SignIn from './components/signin.component'
+import TransactionsComponent from "./components/transactions.component";
 
 class App extends Component {
   render() {
@@ -17,15 +17,13 @@ class App extends Component {
         <div>
           <h1>Simple SPA</h1>
           <ul className="header">
-            <li><NavLink to="/">Main</NavLink></li>
-            <li><NavLink to="/login">Login</NavLink></li>
+            <li><NavLink to="/">Transactions</NavLink></li>
             <li><NavLink to="/signup">Sign up</NavLink></li>
             <li><NavLink to="/signin">Sign in</NavLink></li>
           </ul>
           <div className="content">
             <Routes>
-              <Route exact path="/" element={<Main/>}/>
-              <Route path="/login" element={<Login/>}/>
+              <Route exact path="/" element={<TransactionsComponent/>}/>
               <Route path="/signup" element={<RegisterForm/>}/>
               <Route path="/signin" element={<SignIn/>}/>
             </Routes>
@@ -34,21 +32,6 @@ class App extends Component {
       </BrowserRouter>
     );
   };
-}
-class Login extends Component{
-  render(){
-    return (
-      <span>Login page</span>
-    );
-  }
-}
-
-class Main extends Component{
-  render(){
-    return (
-      <span>Main page</span>
-    );
-  }
 }
 
 export default App;
