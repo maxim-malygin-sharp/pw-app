@@ -18,7 +18,7 @@ class CreateTransaction extends React.Component {
   {
     this.props.showModal(false);
   }
-
+m
   render()
   {
     var users = this.props.user?.users;
@@ -95,84 +95,3 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {createTransaction, getUsers, showModal})(CreateTransaction);
-
-
-/*
-//----------------------------
-
-function CreateTransaction({showModal, transactionData, handleCloseModal}) {
-  const {
-      register,
-      formState: {errors},
-      handleSubmit,
-  } = useForm({
-      values: transactionData,
-      resolver: yupResolver(schema),
-  });
-
-  const createTransactionData = useSelector((state) => state.createTransactionData);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-      dispatch(getUsersAction());
-  }, [dispatch]);
-
-  const createTransaction = (data) => {
-      dispatch(createTransactionAction(data.recipient, data.amount));
-  };
-
-  return (
-      <Modal show={showModal} onHide={() => handleCloseModal()} backdrop="static">
-          <Modal.Header closeButton>
-              <Modal.Title>Create transaction</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-              {createTransactionData.isCreated === true && (
-                  <SuccessMessage successMessage="Transaction created successfully"></SuccessMessage>
-              )}
-
-              <ErrorMessage errorMessage={createTransactionData.error}></ErrorMessage>
-              <Form>
-                  <Form.Group className="mb-3" controlId="formRecipient">
-                      <Form.Label>Recipient</Form.Label>
-                      <Form.Select {...register("recipient")} isInvalid={!!errors.recipient}>
-                          <option value=""></option>
-                          {createTransactionData.users?.map((user) => (
-                              <option key={user.id} value={user.name}>
-                                  {user.name}
-                              </option>
-                          ))}
-                      </Form.Select>
-                      <Form.Control.Feedback type="invalid">{errors.recipient?.message}</Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group className="mb-3" controlId="formAmount">
-                      <Form.Label>Amount</Form.Label>
-                      <Form.Control type="number" min="0" {...register("amount")} isInvalid={!!errors.amount} />
-                      <Form.Control.Feedback type="invalid">{errors.amount?.message}</Form.Control.Feedback>
-                  </Form.Group>
-              </Form>
-          </Modal.Body>
-          <Modal.Footer>
-              <Button variant="secondary" onClick={() => handleCloseModal()}>
-                  Close
-              </Button>
-              <Button
-                  variant="primary"
-                  onClick={handleSubmit(createTransaction)}
-                  disabled={createTransactionData.isLoading}
-              >
-                  Create
-              </Button>
-          </Modal.Footer>
-      </Modal>
-  );
-}
-
-const mapStateToProps = (state) => {
-  return {
-      createTransactionData: state.createTransactionData,
-  };
-};
-
-export default connect(mapStateToProps)(CreateTransaction);
-*/
