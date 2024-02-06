@@ -18,7 +18,7 @@ class CreateTransaction extends React.Component {
   {
     this.props.showModal(false);
   }
-m
+
   render()
   {
     var users = this.props.user?.users;

@@ -9,7 +9,7 @@ export default function modal(state = INIT_STATE, action) {
         case actionTypes.SHOW_MODAL: {
             return {
                 ...state,
-                users: action.payload.showModal
+                showModal: action.payload.showModal
             };
         }
         default:
