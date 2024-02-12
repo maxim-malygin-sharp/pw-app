@@ -13,7 +13,7 @@ export const getUsers = () => ({
 });
 export const getUsersSuccess = ([{id, date, username, amount, balance}]) => ({
     type: actionTypes.GET_USERS_SUCCESS,
-    payload: {transactions: [{id, date, username, amount, balance}]},
+    payload: {users: [{id, date, username, amount, balance}]},
 });
 export const getUsersFailed = (error) => ({
     type: actionTypes.GET_USERS_FAILED,

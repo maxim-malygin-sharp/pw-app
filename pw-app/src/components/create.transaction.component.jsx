@@ -6,7 +6,7 @@ import { getUsers } from '../actions/user.actions'
 import { showModal } from '../actions/modal.actions'
 import { createTransaction } from '../actions/transaction.actions'
 import FromField from './formfield.component'
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, TextField, Dialog, DialogContent, DialogTitle, DialogActions, Button } from "@mui/material";
 
 class CreateTransaction extends React.Component {
   componentDidMount()
@@ -23,9 +23,26 @@ class CreateTransaction extends React.Component {
   {
     var users = this.props.user?.users;
     var errors = this.props.user?.error;
+    console.log('this.props.modal.showModal -> ' + this.props.modal.showModal);
     return (
-      <modal show={this.props.modal.showModal} onHide={() => this.handleCloseModal()} backdrop="static">
-          <h4>Create transaction</h4>
+      <Dialog 
+        open={this.props.modal.showModal}
+        onClose={() => this.handleCloseModal()}
+        
+        PaperProps={{
+          component: 'form',
+          onSubmit: (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.currentTarget);
+            const formJson = Object.fromEntries((formData).entries());
+            const email = formJson.email;
+            console.log(email);
+            this.handleCloseModal();
+          },
+        }}>
+          
+        <DialogTitle>Create transaction</DialogTitle>
+        <DialogContent>
           <>
             <Formik
               initialValues={{
@@ -34,7 +51,7 @@ class CreateTransaction extends React.Component {
               }}
               validationSchema={
                 yup.object({
-                    amount: yup.string().required("Amount is required"),
+                    amount: yup.number().required("Amount is required").min(0),
                     recipient: yup.string().required("Recipient is required")
               })}
               onSubmit={(values, { setSubmitting }) => {
@@ -70,18 +87,17 @@ class CreateTransaction extends React.Component {
                     label="Amount"
                     placeholder=""
                   />
-                  <button className="btn btn-dark m-3" type="submit">
-                    Send
-                  </button>
-                  <button className="btn btn-primary m-3" type="reset" onClick={() => this.handleCloseModal()}>
-                    Close
-                  </button>
                 </Form>
               </div>
               )}
               </Formik>
           </>
-      </modal>
+        <DialogActions>
+          <Button onClick={() => this.handleCloseModal()}>Cancel</Button>
+          <Button type="submit">Send</Button>
+        </DialogActions>
+          </DialogContent>
+      </Dialog>
         );
     }
   }

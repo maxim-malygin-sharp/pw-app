@@ -4,14 +4,24 @@ import * as yup from 'yup'
 import { register, authCheck } from '../actions/auth.actions'
 import FromField from './formfield.component'
 import { useNavigate } from "react-router-dom";
+import { Component } from "react";
+import { Button } from "@mui/material";
 
-const Register = (props) => {
-    var navigate = useNavigate();
-    this.props.authCheck();
-    if (props.auth?.isAuthenticated == true)
-    {
-      navigate('/', { replace: true });
-    }
+class Register extends Component {
+
+  handleBack()
+  {
+
+  }
+
+  render()
+  {
+    // var navigate = useNavigate();
+    // this.props.authCheck();
+    // if (this.props.auth?.isAuthenticated == true)
+    // {
+    //   navigate('/', { replace: true });
+    // }
 
     return (
         <Formik
@@ -30,7 +40,7 @@ const Register = (props) => {
                 .oneOf([yup.ref("password"), null], "Confirm Password does not match")
           })}
           onSubmit={(values, { setSubmitting }) => {
-            props.register({username: values.userName, email: values.email, password: values.password});
+            this.props.register({username: values.userName, email: values.email, password: values.password});
           }}
         >
             <div>
@@ -49,28 +59,25 @@ const Register = (props) => {
                 placeholder="loremipsum@gmail.com"
               />
               <FromField
-                type="text"
+                type="password"
                 name="password"
                 label="Password"
                 placeholder=""
               />
               <FromField
-                type="text"
+                type="password"
                 name="confirmPassword"
                 label="Confirm Password"
                 placeholder=""
               />
-              <button className="btn btn-dark m-3" type="submit">
-                Register
-              </button>
-              <button className="btn btn-primary m-3" type="reset">
-                Reset
-              </button>
+              <Button type="submit">Register</Button>
+              <Button onClick={() => this.handleBack()}>Cancel</Button>
             </Form>
           </div>
           </Formik>
         );
     }
+  }
 
 const mapStateToProps = (state) => {
     return {

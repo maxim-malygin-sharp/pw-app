@@ -19,7 +19,7 @@ export const getUsers = (filter) => {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
-            data: { filter }
+            data: { filter: " " }
         })
 };
 

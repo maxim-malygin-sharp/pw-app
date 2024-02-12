@@ -5,6 +5,7 @@ import {connect, useDispatch} from "react-redux";
  import { authCheck, signin } from '../actions/auth.actions'
  import FromField from './formfield.component'
  import { useNavigate } from "react-router-dom";
+ import { TextField, Button } from "@mui/material";
  
  const SignIn = (props) => {
     
@@ -25,6 +26,7 @@ import {connect, useDispatch} from "react-redux";
        })}
        onSubmit={(data, { setSubmitting }) => {
         console.log('signin.submit')
+        debugger;
         props.signin({email: data.email, password: data.password});
        }}
      >
@@ -36,19 +38,15 @@ import {connect, useDispatch} from "react-redux";
                 placeholder="loremipsum@gmail.com"
               />
               <FromField
-                type="text"
+                type="password"
                 name="password"
                 label="Password"
                 placeholder=""
               />
               
             <ErrorMessage name='name' component='div' />
-            <button type='submit'>
-              Sign In
-            </button>
-            <button className="btn btn-primary m-3" type="reset">
-              Cancel
-            </button>
+          <Button type="submit">Sign In</Button>
+          <Button>Cancel</Button>
        </Form>
      </Formik>
    );

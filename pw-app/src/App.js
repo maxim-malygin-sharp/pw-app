@@ -9,6 +9,7 @@ import './App.css';
 import RegisterForm from './components/register.component'
 import SignIn from './components/signin.component'
 import TransactionsComponent from "./components/transactions.component";
+import CreateTransactionComponent from "./components/create.transaction.component";
 
 class App extends Component {
   render() {

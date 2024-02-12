@@ -4,6 +4,7 @@ import { getTransactions, setRepeatTransaction } from "../actions/transaction.ac
 import { showModal } from "../actions/modal.actions";
 import AuthStatus from "./auth.status.component";
 import CreateTransaction from "./create.transaction.component";
+import { Button } from "@mui/material";
 
 class Transactions extends Component {
     componentDidMount()
@@ -12,6 +13,7 @@ class Transactions extends Component {
     }
 
     handleShowModal(username, amount) {
+        console.log('handleShowModal')
         if (!!username && !!amount){
             this.props.setRepeatTransaction( username, amount);
         }
@@ -31,7 +33,7 @@ class Transactions extends Component {
             <>
                 <AuthStatus />
                 <CreateTransaction />
-                <button onClick={() => this.handleShowModal()}>Create Transaction</button>
+                <Button onClick={() => this.handleShowModal()}>Create Transaction</Button>
                 <table>
                     <thead>
                         <tr>
