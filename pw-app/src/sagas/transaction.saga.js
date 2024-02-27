@@ -16,7 +16,6 @@ function* getTransactions() {
         });
 
     } catch (e) {
-        debugger;
         yield put({
             type: actionTypes.GET_TRANSACTIONS_FAILED,
              payload: {error: e.response.data}

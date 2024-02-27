@@ -6,7 +6,7 @@ import * as authService from "../services/auth.service";
 function* register(action) {
     try {
         const {username, email, password} = action.payload;
-
+debugger;
         const response = yield call(authService.signUp, username, email, password);
         yield put({type: actionTypes.REGISTER_SUCCESS});
 

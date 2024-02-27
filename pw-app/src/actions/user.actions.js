@@ -5,7 +5,9 @@ export const actionTypes = {
     
     GET_CURRENT_USER: "GET_CURRENT_USER",
     GET_CURRENT_USER_SUCCESS: "GET_CURRENT_USER_SUCCESS",
-    GET_CURRENT_USER_FAILED: "GET_CURRENT_USER_FAILED"
+    GET_CURRENT_USER_FAILED: "GET_CURRENT_USER_FAILED",
+    
+    CLEAN_CURRENT_USER: "CLEAN_CURRENT_USER"
 };
 
 export const getUsers = () => ({
@@ -23,11 +25,14 @@ export const getUsersFailed = (error) => ({
 export const getCurrentUser = () => ({
     type: actionTypes.GET_CURRENT_USER
 });
-export const getCurrentUserSuccess = ([{id, date, username, amount, balance}]) => ({
+export const getCurrentUserSuccess = ([{id, name, email, balance}]) => ({
     type: actionTypes.GET_CURRENT_USER_SUCCESS,
-    payload: {transactions: [{id, date, username, amount, balance}]},
+    payload: {currentUser: [{id, name, email, balance}]},
 });
 export const getCurrentUserFailed = (error) => ({
     type: actionTypes.GET_CURRENT_USER_FAILED,
     payload: {error},
+});
+export const cleanCurrentUser = () => ({
+    type: actionTypes.CLEAN_CURRENT_USER
 });

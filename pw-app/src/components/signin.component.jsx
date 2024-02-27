@@ -2,21 +2,15 @@ import React from 'react';
 import {connect, useDispatch} from "react-redux";
  import { Formik, Field, Form, ErrorMessage } from 'formik';
  import * as Yup from 'yup';
- import { authCheck, signin } from '../actions/auth.actions'
+ import { signin } from '../actions/auth.actions'
  import FromField from './formfield.component'
- import { useNavigate } from "react-router-dom";
- import { TextField, Button } from "@mui/material";
+ import { Button } from "@mui/material";
+import { useAuth } from '../stores/auth.hooks';
  
- const SignIn = (props) => {
-    
-    const dispatch = useDispatch();
-    // var navigate = useNavigate();
-    // dispatch(authCheck());
-    // if (props.auth?.isAuthenticated == true)
-    // {
-    //   navigate('/', { replace: true });
-    // }
+ export const SignIn = (props) => {
+   let { doSignin, error } = useAuth();
 
+    debugger;
    return (
      <Formik
        initialValues={{ firstName: '', lastName: '', email: '' }}
@@ -27,7 +21,10 @@ import {connect, useDispatch} from "react-redux";
        onSubmit={(data, { setSubmitting }) => {
         console.log('signin.submit')
         debugger;
-        props.signin({email: data.email, password: data.password});
+        //props.signin({email: data.email, password: data.password});
+        doSignin({email: data.email, password: data.password});
+        //dispatch(signin({email: data.email, password: data.password}));
+
        }}
      >
        <Form>
@@ -44,7 +41,13 @@ import {connect, useDispatch} from "react-redux";
                 placeholder=""
               />
               
-            <ErrorMessage name='name' component='div' />
+            <ErrorMessage name='name' component='div'>    
+              { msg => <div style={{ color: 'red' }}>{ msg}</div> }  
+            </ErrorMessage>
+              {!!error ?
+                <div style={{ color: 'red' }}>{ error }</div>
+                : null
+              }
           <Button type="submit">Sign In</Button>
           <Button>Cancel</Button>
        </Form>
@@ -52,10 +55,10 @@ import {connect, useDispatch} from "react-redux";
    );
  };
 
-const mapStateToProps = (state) => {
-    return {
-        auth: state.auth,
-    };
-};
+// const mapStateToProps = (state) => {
+//     return {
+//         auth: state.auth,
+//     };
+// };
 
-export default connect(mapStateToProps, {signin})(SignIn);
+// export default connect(mapStateToProps, {signin})(SignIn);

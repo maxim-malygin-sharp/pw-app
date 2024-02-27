@@ -2,8 +2,7 @@ import { Component } from "react";
 import { connect } from "react-redux";
 import { getTransactions, setRepeatTransaction } from "../actions/transaction.actions";
 import { showModal } from "../actions/modal.actions";
-import AuthStatus from "./auth.status.component";
-import CreateTransaction from "./create.transaction.component";
+import { CreateTransaction } from "./create.transaction.component";
 import { Button } from "@mui/material";
 
 class Transactions extends Component {
@@ -31,7 +30,6 @@ class Transactions extends Component {
         return (
         
             <>
-                <AuthStatus />
                 <CreateTransaction />
                 <Button onClick={() => this.handleShowModal()}>Create Transaction</Button>
                 <table>

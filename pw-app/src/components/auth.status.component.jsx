@@ -1,50 +1,39 @@
-import { Component } from "react";
+import { Component, useEffect } from "react";
 import { connect } from "react-redux";
 import { getCurrentUser } from "../actions/user.actions";
-import { signoutAction, authCheck } from "../actions/auth.actions";
+import { useAuth } from "../stores/auth.hooks";
+import { useUser } from "../stores/user.hooks";
 
-class AuthStatus extends Component {
-    constructor (props){
-        super(props);
+export const AuthStatus = () => {
+    let  { accessToken, signout, doSignin } = useAuth();
+    let  { currentUser, loadCurrentUser, isLoading } = useUser();
+    
+    debugger;
+    useEffect(() => {
+        if (!isLoading && !currentUser)
+        {
+            debugger;
+            loadCurrentUser();
+        }
+    });
 
-        this.handleSignOut = this.handleSignOut.bind(this);
-    }
-      
-    componentDidMount()
-    {
-        Promise.all([
-            this.props.authCheck(),
-            this.props.getCurrentUser()
-        ]);
-    }
-
-    handleSignOut()
-    {
-        debugger;
-        this.props.signoutAction();
-    }
-
-    render() {
-        if (!!this.props.currentUser)
+        if (!!accessToken)
             return (
             <div>
                 <h4 className="mb-3">
-                    {this.props.currentUser?.name} <br /> balance {this.props.currentUser?.balance.toFixed(2)}
+                    {currentUser?.name} <br /> balance {currentUser?.balance.toFixed(2)}
                 </h4>
-                <button onClick={this.handleSignOut}>Sign out</button>
+                <button onClick={() => signout() }>Sign out</button>
             </div>
             );
         else
         {
-            return null;
+            return (
+            <div>
+                <h4 className="mb-3">
+                    You are not authorized
+                </h4>
+                <button onClick={() => doSignin() }>Sign in</button>
+            </div>);
         }
-    }
 }
-const mapStateToProps = (state) => {
-    return {
-        currentUser: state.user?.currentUser,
-        isAuthenticated: state.user?.isAuthenticated,
-    };
-};
-
-export default connect(mapStateToProps, { getCurrentUser, signoutAction, authCheck })(AuthStatus);
