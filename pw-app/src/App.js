@@ -8,7 +8,7 @@ import {
 import './App.css';
 import RegisterForm from './components/register.component'
 import { SignIn } from './components/signin.component'
-import TransactionsComponent from "./components/transactions.component";
+import { TransactionsComponent }  from "./components/transactions.component";
 import CreateTransactionComponent from "./components/create.transaction.component";
 import { StateProvider } from "./providers/auth.provider";
 import { RequireAuth } from "./providers/auth.required";
@@ -37,8 +37,8 @@ class App extends Component {
       <Provider store={store}>
         <BrowserRouter>
           <div>
-            <h1>Simple SPA</h1>
-            <ul className="header">
+            <h1>Parrot Wings</h1>
+            <ul className="horizontal-menu">
               <li><NavLink to={HOME}>Transactions</NavLink></li>
               <li><NavLink to={SIGN_UP}>Sign up</NavLink></li>
               <li><NavLink to={SIGN_IN}>Sign in</NavLink></li>

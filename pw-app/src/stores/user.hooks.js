@@ -1,4 +1,4 @@
-import { appSelector, useAppDipatch, useAppActions } from "./hooks";
+import { appSelector, useAppDipatch } from "./hooks";
 import { getCurrentUser, getUsers } from "../actions/user.actions";
 
 export const useUser = () => {
@@ -7,12 +7,10 @@ export const useUser = () => {
 
     debugger;
     const loadCurrentUser = () => {
-        if (!!currentUser){
-            dispatch(getCurrentUser());
-        }
+        dispatch(getCurrentUser());
     }
     const fetchUsers = () => {
-        if (!!users && !isLoading)
+        if ((!users || users.length == 0) && !isLoading)
         {
             dispatch(getUsers());
         }

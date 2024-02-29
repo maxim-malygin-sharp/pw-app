@@ -3,7 +3,7 @@ export const actionTypes = {
 };
 
 
-export const showModal = (showModal) => ({
+export const showModalAction = (showModal) => ({
     type: actionTypes.SHOW_MODAL,
     payload: {showModal},
 });

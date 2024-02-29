@@ -16,14 +16,9 @@ class Register extends Component {
 
   render()
   {
-    // var navigate = useNavigate();
-    // this.props.authCheck();
-    // if (this.props.auth?.isAuthenticated == true)
-    // {
-    //   navigate('/', { replace: true });
-    // }
-
     return (
+      <div className="login-form-wrap">
+      <h1 className="">Signup</h1>
         <Formik
           initialValues={{ 
             userName: '',
@@ -43,38 +38,35 @@ class Register extends Component {
             this.props.register({username: values.userName, email: values.email, password: values.password});
           }}
         >
-            <div>
-            <h1 className="">Signup</h1>
-            <Form className="form p-3">
+              <Form className="login-form">
               <FromField
                 type="text"
                 label="User Name"
                 name="userName"
-                placeholder="Lorem"
+                placeholder="User Name"
               />
               <FromField
                 type="email"
                 name="email"
                 label="Email"
-                placeholder="loremipsum@gmail.com"
+                placeholder="Email"
               />
               <FromField
                 type="password"
                 name="password"
                 label="Password"
-                placeholder=""
+                placeholder="Password"
               />
               <FromField
                 type="password"
                 name="confirmPassword"
                 label="Confirm Password"
-                placeholder=""
+                placeholder="Confirm Password"
               />
               <Button type="submit">Register</Button>
-              <Button onClick={() => this.handleBack()}>Cancel</Button>
             </Form>
-          </div>
           </Formik>
+          </div>
         );
     }
   }

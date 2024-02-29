@@ -1,7 +1,57 @@
+import { useEffect } from "react";
+import { CreateTransaction } from "./create.transaction.component";
+import { Button } from "@mui/material";
+import { useTransaction } from "../stores/transaction.hooks";
+
+export const TransactionsComponent = () => {
+    let { fetchTransactions, repeatTransaction, openCreationTransactionModal,
+         error, isLoading, transactions } = useTransaction();
+
+    useEffect(() =>
+    {
+        if (!!transactions && !isLoading)
+        {
+            fetchTransactions();
+        }
+    });
+
+        return (
+        
+            <>
+                <CreateTransaction />
+                <Button onClick={() => openCreationTransactionModal()}>Create Transaction</Button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Correspondent Name</th>
+                            <th>Amount</th>
+                            <th>Balance</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {transactions?.data?.map((transaction) => (
+                            <tr key={transaction.id}>
+                                <td>{transaction.date}</td>
+                                <td>{transaction.username}</td>
+                                <td>{transaction.amount.toFixed(2)}</td>
+                                <td>{transaction.balance.toFixed(2)}</td>
+                                <td></td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <div>{error}</div>
+            </>
+        );
+}
+
+/*
 import { Component } from "react";
 import { connect } from "react-redux";
 import { getTransactions, setRepeatTransaction } from "../actions/transaction.actions";
-import { showModal } from "../actions/modal.actions";
+import { showModalAction } from "../actions/modal.actions";
 import { CreateTransaction } from "./create.transaction.component";
 import { Button } from "@mui/material";
 
@@ -67,4 +117,5 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { getTransactions, showModal, setRepeatTransaction })(Transactions);
+export default connect(mapStateToProps, { getTransactions: getTransactions, showModal: showModalAction, setRepeatTransaction: setRepeatTransaction })(Transactions);
+*/

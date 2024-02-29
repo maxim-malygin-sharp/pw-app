@@ -1,8 +1,8 @@
 import {actionTypes} from "../actions/transaction.actions";
 
 const INIT_STATE = {
-    isLoggedIn: false,
     isLoading: false,
+    transaction: null,
     transactions: [],
     error: null,
 };
@@ -28,6 +28,14 @@ export default function transaction(state = INIT_STATE, action) {
                 ...state,
                 isLoading: false,
                 error: action.payload.error,
+            };
+        }
+        case actionTypes.SET_REPEAT_TRANSACTION: {
+            return {
+                ...state,
+                isLoading: false,
+                transaction: { recipient: action.payload.recipient, amount: action.payload.amount },
+                error: null,
             };
         }
         default:

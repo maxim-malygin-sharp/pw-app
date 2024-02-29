@@ -1,26 +1,22 @@
 import React, { useEffect } from 'react';
-import {connect, useDispatch} from "react-redux";
 import { Formik, Form } from 'formik'
 import * as yup from 'yup'
-import { getUsers } from '../actions/user.actions'
-import { showModal } from '../actions/modal.actions'
-import { createTransaction } from '../actions/transaction.actions'
 import FromField from './formfield.component'
 import { Autocomplete, TextField, Dialog, DialogContent, DialogTitle, DialogActions, Button } from "@mui/material";
 import { useUser } from '../stores/user.hooks';
+import { useModal } from '../stores/modal.hooks';
+import { useTransaction } from '../stores/transaction.hooks';
 
 export const CreateTransaction = () => {
-  let { fetchUsers, currentUser, users, error, isLoading } = useUser();
-let showModal = false;
+  let { fetchUsers, currentUser, users, error } = useUser();
+  let { showModal, closeModal } = useModal();
+  let { createTransaction } = useTransaction();
+
   useEffect(() =>
   {
     debugger;
     fetchUsers();
   });
-  // handleCloseModal()
-  // {
-  //   //this.props.showModal(false);
-  // }
 
     var errors = error;
     var user = currentUser;
@@ -34,7 +30,7 @@ debugger;
     return (
       <Dialog 
         open={showModal}
-        onClose={() => this.handleCloseModal()}
+        onClose={() => closeModal()}
         
         PaperProps={{
           component: 'form',
@@ -44,7 +40,7 @@ debugger;
             const formJson = Object.fromEntries((formData).entries());
             const email = formJson.email;
             console.log(email);
-            this.handleCloseModal();
+            closeModal();
           },
         }}>
           
@@ -63,15 +59,13 @@ debugger;
               })}
               onSubmit={(values, { setSubmitting }) => {
                 debugger;
-                //this.props.createTransaction(values.recipient, values.amount);
+                createTransaction(values.recipient, values.amount);
               }}
             >
               {({ handleChange, values, setFieldValue, handleBlur, touched }) => (
                 <div>
-                <Form className="form p-3">
-                  <label htmlFor="recipient">Recipient: </label>
+                <Form>
                   <Autocomplete
-                      id="recipient-autocomplete"
                       options={users}
                       getOptionLabel={(user) => user.name}
                       onChange={(e, value) => setFieldValue("recipient", value?.id || "")}
@@ -85,7 +79,6 @@ debugger;
                               helperText={touched?.recipient && errors}
                               label="Recipient"
                               name="recipient"
-                              variant="outlined"
                           />
                       )}
                   />
@@ -97,7 +90,7 @@ debugger;
                   />
                 </Form>
               <DialogActions>
-                <Button onClick={() => this.handleCloseModal()}>Cancel</Button>
+                <Button onClick={() => closeModal()}>Cancel</Button>
                 <Button type="submit">Send</Button>
               </DialogActions>
               </div>
@@ -110,6 +103,20 @@ debugger;
     }
 
 /*
+import React, { useEffect } from 'react';
+import {connect, useDispatch} from "react-redux";
+import { Formik, Form } from 'formik'
+import * as yup from 'yup'
+import { getUsers } from '../actions/user.actions'
+import { showModalAction } from '../actions/modal.actions'
+import { createTransaction } from '../actions/transaction.actions'
+import FromField from './formfield.component'
+import { Autocomplete, TextField, Dialog, DialogContent, DialogTitle, DialogActions, Button } from "@mui/material";
+import { useUser } from '../stores/user.hooks';
+import { useModal } from '../stores/modal.hooks';
+import { useTransaction } from '../stores/transaction.hooks';
+
+
 class CreateTransaction extends React.Component {
   constructor(){
     let { fetchUsers } = useUser();

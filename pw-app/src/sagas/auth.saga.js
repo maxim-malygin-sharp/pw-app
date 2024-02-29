@@ -1,5 +1,6 @@
 import { takeLatest, call, fork, put } from "redux-saga/effects";
 import { actionTypes } from "../actions/auth.actions";
+import { cleanCurrentUser } from "../actions/user.actions";
 import * as authStore from "../stores/auth.store";
 import * as authService from "../services/auth.service";
 
@@ -19,12 +20,9 @@ debugger;
 
 function* signIn(action) {
     try {
-        debugger;
-        console.log('saga->signin');
         const {email, password} = action.payload;
         const response = yield call(authService.signIn, email, password);
         
-        debugger;
         authStore.setAccessToken(response?.data?.id_token);
 
         yield put({type: actionTypes.SIGNIN_SUCCESS});
@@ -36,6 +34,7 @@ function* signIn(action) {
 function* signOut() {
     try {
         authStore.clearAccessToken();
+        yield put(cleanCurrentUser());
         yield put({type: actionTypes.SIGNOUT_SUCCESS});
     } catch {
         yield put({type: actionTypes.SIGNIN_FAILED, payload: {error: "Signout failed"}});

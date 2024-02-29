@@ -1,17 +1,17 @@
 import React from 'react';
 import { ErrorMessage, useField} from 'formik';
 
+
 const FormField  = ({ label, ...props }) => {
     const [field, meta] = useField(props);
     return (
       <>
-        <label>
-          {label}
+        <p>
           <input {...field} {...props} />
-        </label>
         {meta.touched && meta.error ? (
-          <div className="error">{meta.error}</div>
+          <i class="validation"><span></span><span></span></i>
         ) : null}
+        </p>
       </>
     );
   }
