@@ -6,22 +6,21 @@ import {
   Routes
 } from "react-router-dom";
 import './App.css';
-import RegisterForm from './components/register.component'
-import { SignIn } from './components/signin.component'
-import { TransactionsComponent }  from "./components/transactions.component";
-import CreateTransactionComponent from "./components/create.transaction.component";
-import { StateProvider } from "./providers/auth.provider";
-import { RequireAuth } from "./providers/auth.required";
-import { NoAuth } from "./providers/auth.not.required";
+import RegisterForm from './features/auth/components/register.component'
+import { SignIn } from './features/auth/components/signin.component'
+import { TransactionsComponent }  from "./features/transaction/components/transactions.component";
+import CreateTransactionComponent from "./features/transaction/components/create.transaction.component";
+import { StateProvider } from "./features/auth/components/auth.provider";
+import { RequireAuth } from "./features/auth/components/auth.required";
+import { NoAuth } from "./features/auth/components/auth.not.required";
 import { HOME, SIGN_IN, SIGN_UP } from './constants/routes';
-import { interceptor } from "./services/unauthorized.interceptor";
 
 import reducers from "./reducers";
 import sagas from "./sagas";
 import createSagaMiddleware from "redux-saga";
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { AuthStatus } from "./components/auth.status.component";
+import { AuthStatus } from "./features/auth/components/auth.status.component";
 
 const sagaMiddleware = createSagaMiddleware();
 const store = configureStore({

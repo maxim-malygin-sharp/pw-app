@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from '@reduxjs/toolkit';
 import { useMemo } from 'react';
-import * as authActions from '../actions/auth.actions';
-import * as userActions from '../actions/user.actions';
+import * as authActions from '../features/auth/actions/auth.actions';
+import * as userActions from '../features/user/actions/user.actions';
 
 const actions = {
     ...authActions,
