@@ -21,9 +21,7 @@ import { SIGN_UP } from '../constants/routes';
        })}
        onSubmit={(data, { setSubmitting }) => {
         debugger;
-        //props.signin({email: data.email, password: data.password});
         doSignin({email: data.email, password: data.password});
-        //dispatch(signin({email: data.email, password: data.password}));
 
        }}
      >

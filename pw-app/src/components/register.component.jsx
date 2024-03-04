@@ -8,12 +8,6 @@ import { Component } from "react";
 import { Button } from "@mui/material";
 
 class Register extends Component {
-
-  handleBack()
-  {
-
-  }
-
   render()
   {
     return (

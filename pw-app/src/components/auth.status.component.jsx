@@ -3,6 +3,7 @@ import { useAuth } from "../stores/auth.hooks";
 import { useUser } from "../stores/user.hooks";
 import { useNavigate } from "react-router";
 import { SIGN_IN } from "../constants/routes";
+import { Button } from "@mui/material";
 
 export const AuthStatus = () => {
     let navigate = useNavigate();
@@ -24,7 +25,7 @@ export const AuthStatus = () => {
                 <h4 className="mb-3">
                     {currentUser?.name} your balance {currentUser?.balance.toFixed(2)}
                 </h4>
-                <button onClick={() => signout() }>Sign out</button>
+                <Button className="mb-3" onClick={() => signout() }>Sign out</Button>
             </div>
             );
         else
@@ -34,7 +35,7 @@ export const AuthStatus = () => {
                 <h4 className="mb-3">
                     You are not authorized
                 </h4>
-                <button onClick={() => navigate(SIGN_IN) }>Sign in</button>
+                <Button onClick={() => navigate(SIGN_IN) }>Sign in</Button>
             </div>);
         }
 }

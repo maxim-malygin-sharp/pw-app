@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { CreateTransaction } from "./create.transaction.component";
 import { Button } from "@mui/material";
 import { useTransaction } from "../stores/transaction.hooks";
+import { TransactionsTable } from "./table.component";
 
 export const TransactionsComponent = () => {
     let { fetchTransactions, repeatTransaction, openCreationTransactionModal,
@@ -15,107 +16,45 @@ export const TransactionsComponent = () => {
         }
     });
 
+    const columns =
+        [
+          {
+            Header: "Transactions",
+            columns: [
+              {
+                Header: "Date",
+                accessor: "date",
+              },
+              {
+                Header: "Correspondent Name",
+                accessor: "username",
+              },
+              {
+                Header: "Amount",
+                accessor: "amount",
+              },
+              {
+                Header: "Balance",
+                accessor: "balance",
+              },
+            ]
+          },
+        ];
+    
+    
+    const data = [
+        { id: 1, date: "2023-11-01 20:23:11", username: "Vasja Pupkin", amount : 19, balance: 300 },
+        { id: 2, date: "2023-12-21 21:24:11", username: "Jhon Petrucci", amount : 20, balance: 340 },
+        { id: 3, date: "2024-02-01 10:23:11", username: "Alex Abmrosimov", amount : 40, balance: 220 },
+    ]
+
         return (
         
             <>
                 <CreateTransaction />
-                <Button onClick={() => openCreationTransactionModal()}>Create Transaction</Button>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Correspondent Name</th>
-                            <th>Amount</th>
-                            <th>Balance</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {transactions?.data?.map((transaction) => (
-                            <tr key={transaction.id}>
-                                <td>{transaction.date}</td>
-                                <td>{transaction.username}</td>
-                                <td>{transaction.amount.toFixed(2)}</td>
-                                <td>{transaction.balance.toFixed(2)}</td>
-                                <td></td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                <Button onClick={() => openCreationTransactionModal()} style={{ margin: 15}}  >Create Transaction</Button>
+                <TransactionsTable data={data} columns={columns}/>
                 <div>{error}</div>
             </>
         );
 }
-
-/*
-import { Component } from "react";
-import { connect } from "react-redux";
-import { getTransactions, setRepeatTransaction } from "../actions/transaction.actions";
-import { showModalAction } from "../actions/modal.actions";
-import { CreateTransaction } from "./create.transaction.component";
-import { Button } from "@mui/material";
-
-class Transactions extends Component {
-    componentDidMount()
-    {
-        this.props.getTransactions();
-    }
-
-    handleShowModal(username, amount) {
-        console.log('handleShowModal')
-        if (!!username && !!amount){
-            this.props.setRepeatTransaction( username, amount);
-        }
-        this.props.showModal(true);
-    };
-
-    handleRepeat(username, amount) {
-        if (amount < 0) {
-            amount = Math.abs(amount);
-        }
-        this.handleShowModal(username, amount);
-    };
-
-    render(){
-        return (
-        
-            <>
-                <CreateTransaction />
-                <Button onClick={() => this.handleShowModal()}>Create Transaction</Button>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Correspondent Name</th>
-                            <th>Amount</th>
-                            <th>Balance</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.props.transactions?.data?.map((transaction) => (
-                            <tr key={transaction.id}>
-                                <td>{transaction.date}</td>
-                                <td>{transaction.username}</td>
-                                <td>{transaction.amount.toFixed(2)}</td>
-                                <td>{transaction.balance.toFixed(2)}</td>
-                                <td></td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-                <div>{this.props.transactions?.error}</div>
-            </>
-        );
-    }
-}
-
-const mapStateToProps = (state) => {
-    return {
-        transactions: state.transactions?.data,
-        error: state.transactions?.error,
-    };
-};
-
-export default connect(mapStateToProps, { getTransactions: getTransactions, showModal: showModalAction, setRepeatTransaction: setRepeatTransaction })(Transactions);
-*/
