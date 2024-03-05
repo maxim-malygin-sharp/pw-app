@@ -6,11 +6,10 @@ import { signoutAction } from "../../auth/actions/auth.actions";
 
 function* getCurrentUser() {
     try {
-        debugger;
         const response = yield call(userService.getCurrentUser);
         yield put({type: actionTypes.GET_CURRENT_USER_SUCCESS, payload: {currentUser: response.data.user_info_token}});
     } catch (e) {
-        debugger;
+        
         if (!!e.response && e.response.status === UNAUTIORIZED){
             yield put(signoutAction());
         }
@@ -20,9 +19,9 @@ function* getCurrentUser() {
 
 function* getUsers() {
     try {
-        const response = {data:[{id: 21, name: 'test2024_01_29_1@r.com'},{id: 30, name: 'test2024_01_29_2@r.com'}]};
+        const response = {data:[{id: 21, name: 'Test test'},{id: 30, name: 'Test test'}]};
 //        const response = yield call(userService.getUsers);
-        debugger;
+        
         yield put({type: actionTypes.GET_USERS_SUCCESS, payload: {users: response.data}});
     } catch (e) {
         if (!!e.response && e.response.status === UNAUTIORIZED){

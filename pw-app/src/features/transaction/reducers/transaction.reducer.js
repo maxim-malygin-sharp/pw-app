@@ -16,6 +16,7 @@ export default function transaction(state = INIT_STATE, action) {
             };
         }
         case actionTypes.GET_TRANSACTIONS_SUCCESS: {
+            
             return {
                 ...state,
                 isLoading: false,
@@ -35,6 +36,15 @@ export default function transaction(state = INIT_STATE, action) {
                 ...state,
                 isLoading: false,
                 transaction: { recipient: action.payload.recipient, amount: action.payload.amount },
+                error: null,
+            };
+        }
+        case actionTypes.CREATE_TRANSACTION_SUCCESS:
+        case actionTypes.CREATE_TRANSACTION_FAILED: {
+            return {
+                ...state,
+                isLoading: false,
+                transaction:null,
                 error: null,
             };
         }

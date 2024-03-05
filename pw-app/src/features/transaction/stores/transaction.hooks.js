@@ -9,12 +9,12 @@ export const useTransaction = () => {
 
     
     const doCreateTransaction = (recipient, amount) => {
-        debugger;
+        
         dispatch(createTransaction(recipient, amount));
     }
     
     const fetchTransactions = () => {
-        debugger;
+        
         if (!isLoading && !!transactions)
         {
             dispatch(getTransactions());
@@ -27,7 +27,7 @@ export const useTransaction = () => {
     };
 
     const repeatTransaction = (recipient, amount) => {
-        debugger;
+        
      
         if (amount < 0) {
             amount = Math.abs(amount);

@@ -16,7 +16,7 @@ import { PAGE_SIZES } from "../../../constants/pagesize.options";
     );
   }
 
-export const TransactionsTable = ({data, columns}) => {
+export const TransactionsTable = ({data, columns, repeatTransaction}) => {
 
   const {
     getTableProps,

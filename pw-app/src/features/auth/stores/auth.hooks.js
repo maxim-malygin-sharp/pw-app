@@ -7,15 +7,14 @@ export const useAuth = () => {
     const { signin, signoutAction, cleanCurrentUser } = useAppActions();
     const dispatch = useAppDipatch();
 
-    debugger;
     const signout = () => {
-        debugger;
+        
         dispatch(signoutAction());
         dispatch(cleanCurrentUser());
     }
 
     const doSignin = ({email, password}) => {
-        debugger;
+        
         dispatch(signin({email, password}));
     }
 

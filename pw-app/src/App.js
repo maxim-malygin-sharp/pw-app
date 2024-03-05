@@ -9,7 +9,6 @@ import './App.css';
 import RegisterForm from './features/auth/components/register.component'
 import { SignIn } from './features/auth/components/signin.component'
 import { TransactionsComponent }  from "./features/transaction/components/transactions.component";
-import CreateTransactionComponent from "./features/transaction/components/create.transaction.component";
 import { StateProvider } from "./features/auth/components/auth.provider";
 import { RequireAuth } from "./features/auth/components/auth.required";
 import { NoAuth } from "./features/auth/components/auth.not.required";

@@ -7,12 +7,12 @@ export const useModal = () => {
 
     
     const closeModal = () => {
-        debugger;
+        
         dispatch(showModalAction(false));
     }
     
     const openModal = () => {
-        debugger;
+        
         dispatch(showModalAction(true));
     }
 

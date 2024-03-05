@@ -5,7 +5,6 @@ export const useUser = () => {
     const { currentUser, error, isLoading, users  } = appSelector(x => x.user);
     const dispatch = useAppDipatch();
 
-    debugger;
     const loadCurrentUser = () => {
         dispatch(getCurrentUser());
     }

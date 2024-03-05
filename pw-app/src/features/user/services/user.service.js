@@ -24,7 +24,7 @@ export const getUsers = (filter) => {
 };
 
 export const createUser = (username, password, email) => {
-    debugger;
+    
     var token = getToken();
     return axios.post(`${constants.PW_API}users`,
         {

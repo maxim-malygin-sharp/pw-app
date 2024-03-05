@@ -54,7 +54,7 @@ export default function transaction(state = INIT_STATE, action) {
             };
         }
         case actionTypes.CLEAN_CURRENT_USER: {
-            debugger;
+            
             return {
                 ...state,
                 isLoading: false,

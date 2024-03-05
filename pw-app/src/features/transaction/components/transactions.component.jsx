@@ -37,23 +37,24 @@ export const TransactionsComponent = () => {
                 Header: "Balance",
                 accessor: "balance",
               },
+              {
+                Header: '',
+                accessor: 'id',
+                Cell: props => <button className="" onClick={() => {
+                    
+                  repeatTransaction(props.cell.row.values.id, props.cell.row.values.amount)
+                }}>Repeat</button>,
+            }
             ]
           },
         ];
     
-    
-    const data = [
-        { id: 1, date: "2023-11-01 20:23:11", username: "Vasja Pupkin", amount : 19, balance: 300 },
-        { id: 2, date: "2023-12-21 21:24:11", username: "Jhon Petrucci", amount : 20, balance: 340 },
-        { id: 3, date: "2024-02-01 10:23:11", username: "Alex Abmrosimov", amount : 40, balance: 220 },
-    ]
-
         return (
         
             <>
                 <CreateTransaction />
                 <Button onClick={() => openCreationTransactionModal()} style={{ margin: 15}}  >Create Transaction</Button>
-                <TransactionsTable data={data} columns={columns}/>
+                <TransactionsTable data={transactions} columns={columns} />
                 <div>{error}</div>
             </>
         );

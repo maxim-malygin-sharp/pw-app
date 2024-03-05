@@ -10,11 +10,9 @@ export const AuthStatus = () => {
     let  { accessToken, signout } = useAuth();
     let  { currentUser, loadCurrentUser, isLoading } = useUser();
     
-    debugger;
     useEffect(() => {
         if (!isLoading && !currentUser)
         {
-            debugger;
             loadCurrentUser();
         }
     });

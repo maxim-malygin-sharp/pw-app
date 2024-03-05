@@ -6,6 +6,6 @@ export const signUp = (username, email, password) => {
 };
 
 export const signIn = (email, password) => {
-    debugger;
+    
     return axios.post(PW_API+"sessions/create", {email: email, password: password});
 };

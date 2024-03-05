@@ -9,7 +9,6 @@ import { SIGN_UP } from '../../../constants/routes';
  export const SignIn = (props) => {
    let { doSignin, error } = useAuth();
 
-    debugger;
    return (
     <div className="login-form-wrap">
       <h2>Login</h2> 
@@ -20,7 +19,6 @@ import { SIGN_UP } from '../../../constants/routes';
         password: Yup.string().required('Password is required')
        })}
        onSubmit={(data, { setSubmitting }) => {
-        debugger;
         doSignin({email: data.email, password: data.password});
 
        }}

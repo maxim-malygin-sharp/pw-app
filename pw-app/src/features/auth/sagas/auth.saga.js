@@ -7,7 +7,7 @@ import * as authService from "../services/auth.service";
 function* register(action) {
     try {
         const {username, email, password} = action.payload;
-debugger;
+
         const response = yield call(authService.signUp, username, email, password);
         yield put({type: actionTypes.REGISTER_SUCCESS});
 
@@ -45,7 +45,7 @@ function* checkAuth() {
     try {
         const token = authStore.getAccessToken();
         var isAuthenticated = !!token;
-        debugger;
+        
         yield put({type: actionTypes.CHECK_AUTH_SUCCESS, payload: { isAuthenticated: isAuthenticated }});
     } catch (e) {
         yield put({type: actionTypes.CHECK_AUTH_FAILED, payload: {error: e}});
